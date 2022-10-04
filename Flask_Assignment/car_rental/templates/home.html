@@ -1,0 +1,11 @@
+{%  if current_user.is_authenticated and current_user.role == 'User' %}
+{% extends "layout.html" %}
+{% block content %}
+    <h1 style="font-size:48px">Hey!..Happy to see you &#128512;</h1>
+{% endblock %}
+{% else %}
+<h1>Your are Admin</h1>
+    {%  if current_user.is_authenticated %}
+        <meta http-equiv='refresh' content="50; URL=http://127.0.0.1:5000/admin">
+    {% endif %}
+{% endif %}

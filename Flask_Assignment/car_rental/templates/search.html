@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<form method="POST" action = "">
+    {{  form.hidden_tag() }}
+
+        
+            
+
+            {% if form.search.errors %}
+                {{ form.search(class="form-control form-control-lg is-invalid") }}
+               
+                    {% for error in form.search.errors %}
+                        <span> {{ error }}</span>
+                    {% endfor %}
+
+            {% else %}
+                {{ form.search(class="form-control form-control-lg") }}
+            {% endif %}
+
+
+    <div class="form-group ">
+        {{ form.submit(class="btn btn-outline-info") }}
+        
+    </div>
+
+</form>
+
+
+<table  class="table" style="margin-top: 30px;" >
+    <tr>
+        <th>Registration Number</th>
+        <th>Car Name</th>
+        <th>Model Name</th>
+        <th>Picture</th>
+        <th>Is Car Available</th>
+        <th>Per hour</th>
+    </tr>
+
+    {% for post in posts%}
+        
+        <tr>
+            <td>{{post.registration_number}}</td>
+            <td>{{post.carname}}</td>
+            <td>{{post.carmodel}}</td> 
+            <td>
+                <a href="/image/{{post.picture}}">
+                    <img src="/static/car_pics/{{ post.picture }}" width ="100" height="50" >
+                </a>
+                
+            </td>
+            {% if post.is_available == 'Yes' %}
+            <td>
+                <a class="btn btn-primary" href="/book/{{post.registration_number}}">Book</a>
+            </td>
+            {% else %}
+            <td>Not Available</td>
+            {% endif %}
+            <td>{{post.perhour}}</td>
+        </tr>
+    {%endfor%}
+</table>
+
+
+{% if request.path == url %}
+
+<img src="{{ image_file }}" style="width: 100%; height: 100%;">
+{% endif %}
+<meta http-equiv='refresh' content="50; URL=http://127.0.0.1:5000/cardetails">
+{% endblock %}

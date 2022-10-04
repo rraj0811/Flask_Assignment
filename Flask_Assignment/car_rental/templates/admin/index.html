@@ -1,0 +1,39 @@
+{%  if current_user.is_authenticated and current_user.role == 'Admin' %}
+{% extends 'admin/master.html' %}
+
+{% block head_css %}
+{{ super() }}
+<style>
+    #logout{
+        margin-top: 100px;
+        margin-left: 600px;
+        color: aliceblue;
+    }
+    #logout:hover{
+        color:green
+    }
+</style>
+{%endblock%}
+
+{% block main_menu %}
+{{ super() }}
+
+    <a class="nav-item nav-link logout"  href="{{ url_for('logout') }}" id="logout" >Logout</a>
+
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+<h1 style="font-size:48px">Hey!..Welcome &#128525;</h1>
+{% endblock %}
+
+{% else %}
+<h1>Your not an Admin</h1>
+    {%  if current_user.is_authenticated %}
+        <meta http-equiv='refresh' content="2; URL=http://127.0.0.1:5000/home">
+
+    {% else %}
+        <meta http-equiv='refresh' content='2; http://127.0.0.1:5000/'>
+    {% endif %}
+
+{% endif %}
